@@ -1,0 +1,42 @@
+server:
+  port: 1221
+
+# MYSQL
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    url: jdbc:mysql://${BOOK_DELIVERY_DB_IP:localhost}:${BOOK_DELIVERY_DB_PORT:3306}/bookdelivery
+    username: ${DATABASE_USERNAME:root}
+    password: ${DATABASE_PASSWORD:password}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+      show-sql: true
+
+# JWT
+jwt:
+  secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+  expireMs: 600000 # 10 Minutes
+  refrEshexpireMs: 120000
+
+# SWAGGER
+springdoc:
+  api-docs:
+    enabled: true
+  show-actuator: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "*"
+          - prometheus
+  prometheus:
+    metrics:
+      export:
+        enabled: true
